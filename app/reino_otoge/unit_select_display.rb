@@ -81,5 +81,18 @@ module ReinoOtoge
                                   NUMBER_FONT, color: C_BLACK)
       Window.draw(0, 0, @render_target)
     end
+
+    def check_keys
+      return if hidden?
+      # TODO: ユニット選択をさせる
+      if Input.key_push?(K_BACK)
+        @finish_hiding_callback = -> { MusicSelectManager.music_data_display.show! }
+        hide!
+      elsif Input.key_push?(K_RETURN)
+        SE.play(:ok)
+        @finish_hiding_callback = -> { MusicSelectManager.go_to_next_scene }
+        hide!
+      end
+    end
   end
 end

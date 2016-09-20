@@ -1,6 +1,8 @@
 module ReinoOtoge
   module MusicSelectManager
     module ModuleMethods
+      attr_reader :music_data_display, :unit_select_display
+
       def init
         @music_data_ary = MusicData.all
         @music_data_display = MusicDataDisplay.new(@music_data_ary)
@@ -46,29 +48,8 @@ module ReinoOtoge
       end
 
       def check_keys
-        # TODO: リファクタリング
-        if @music_data_display.show?
-          if Input.key_push?(K_LEFT)
-            change_selected_music(-1)
-          elsif Input.key_push?(K_RIGHT)
-            change_selected_music(1)
-          elsif Input.key_push?(K_RETURN)
-            SE.play(:ok)
-            @music_data_display.hide!
-          end
-        elsif @unit_select_display.show?
-          # TODO: ユニット選択をさせる
-          if Input.key_push?(K_BACK)
-            @unit_select_display.finish_hiding_callback =
-              -> { @music_data_display.show! }
-            @unit_select_display.hide!
-          elsif Input.key_push?(K_RETURN)
-            SE.play(:ok)
-            @unit_select_display.finish_hiding_callback =
-              -> { go_to_next_scene }
-            @unit_select_display.hide!
-          end
-        end
+        @music_data_display.check_keys
+        @unit_select_display.check_keys
       end
 
       def check_click

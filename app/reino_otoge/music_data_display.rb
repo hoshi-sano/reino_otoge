@@ -145,6 +145,18 @@ module ReinoOtoge
       end
     end
 
+    def check_keys
+      return if hidden?
+      if Input.key_push?(K_LEFT)
+        MusicSelectManager.change_selected_music(-1)
+      elsif Input.key_push?(K_RIGHT)
+        MusicSelectManager.change_selected_music(1)
+      elsif Input.key_push?(K_RETURN)
+        SE.play(:ok)
+        hide!
+      end
+    end
+
     private
 
     def draw_artworks
