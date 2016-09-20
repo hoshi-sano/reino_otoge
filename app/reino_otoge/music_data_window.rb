@@ -153,6 +153,10 @@ module ReinoOtoge
         MusicSelectManager.change_selected_music(1)
       elsif Input.key_push?(K_RETURN)
         SE.play(:ok)
+        @finish_hiding_callback = Proc.new do
+          MusicSelectManager.unit_select_window.music_data = @selected
+          MusicSelectManager.unit_select_window.show!
+        end
         hide!
       end
     end

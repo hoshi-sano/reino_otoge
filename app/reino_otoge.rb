@@ -3,6 +3,7 @@ module ReinoOtoge
 
   # 共通
   require 'reino_otoge/constants'
+  require 'reino_otoge/config'
   require 'reino_otoge/helper_methods'
   require 'reino_otoge/player_data'
   require 'reino_otoge/scene'
@@ -35,6 +36,7 @@ module ReinoOtoge
   require 'reino_otoge/live_header_menu_bar'
   require 'reino_otoge/music_data_window'
   require 'reino_otoge/unit_select_window'
+  require 'reino_otoge/live_setting_window'
   require 'reino_otoge/music_select_manager'
   require 'reino_otoge/music_select_scene'
 

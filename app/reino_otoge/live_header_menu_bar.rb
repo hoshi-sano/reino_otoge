@@ -26,8 +26,14 @@ module ReinoOtoge
 
     def check_click
       # TODO: 設定ボタンのみをチェック対象とする
+      return if MusicSelectManager.live_setting_window.show?
       if @base === MOUSE_POINTER
-        # TODO: ライブ設定画面を表示する
+        current_window = MusicSelectManager.current_window
+        current_window.finish_hiding_callback = Proc.new do
+          MusicSelectManager.live_setting_window.prev_window = current_window
+          MusicSelectManager.live_setting_window.show!
+        end
+        current_window.hide!
       end
     end
   end

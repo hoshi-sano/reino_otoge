@@ -10,6 +10,7 @@ module ReinoOtoge
   CUSTOM_MUSIC_DIR = File.join(CUSTOM_DIR, 'music')
   CUSTOM_IDOL_DIR = File.join(CUSTOM_DIR, 'idol')
   CUSTOM_SOUND_DIR = File.join(CUSTOM_DIR, 'sound')
+  CONFIG_DIR = File.join(ROOT_DIR, 'config')
   WINDOW_WIDTH = 650
   WINDOW_HEIGHT = 480
   DEFAUTL_SPEED = 5
@@ -30,4 +31,8 @@ module ReinoOtoge
       [size, Font.new(size, 'ＭＳ Ｐゴシック', weight: true)]
     }.to_h
   )
+  SELECTABLE_KEYS = ('A'..'Z').map { |c|
+    const_name = "K_#{c}"
+    [c, DXRuby.const_get(const_name)]
+  }.to_h
 end

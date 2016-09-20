@@ -86,11 +86,15 @@ module ReinoOtoge
       return if hidden?
       # TODO: ユニット選択をさせる
       if Input.key_push?(K_BACK)
-        @finish_hiding_callback = -> { MusicSelectManager.music_data_window.show! }
+        @finish_hiding_callback = Proc.new do
+          MusicSelectManager.music_data_window.show!
+        end
         hide!
       elsif Input.key_push?(K_RETURN)
         SE.play(:ok)
-        @finish_hiding_callback = -> { MusicSelectManager.go_to_next_scene }
+        @finish_hiding_callback = Proc.new do
+          MusicSelectManager.go_to_next_scene
+        end
         hide!
       end
     end

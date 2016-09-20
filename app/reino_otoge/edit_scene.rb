@@ -5,7 +5,7 @@ module ReinoOtoge
   class EditScene
     include HelperMethods
 
-    KEYS = [K_S, K_D, K_F, K_J, K_K]
+    KEYS = Config.live_keys
     LONG_NOTE_THRESHOLD = 10
     BUNDLE_THRESHOLD = 5
     NONE = '-'

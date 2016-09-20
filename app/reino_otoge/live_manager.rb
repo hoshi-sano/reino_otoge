@@ -40,11 +40,11 @@ module ReinoOtoge
         @black_curtain = Sprite.new(0, 0, BLACK_IMAGE)
         @hit_bar = Sprite.new(*HIT_BAR_POSITION, HIT_BAR_IMAGE)
         @keys = {
-          K_S => HitboxGroup.new(@lanes[0]),
-          K_D => HitboxGroup.new(@lanes[1]),
-          K_F => HitboxGroup.new(@lanes[2]),
-          K_J => HitboxGroup.new(@lanes[3]),
-          K_K => HitboxGroup.new(@lanes[4]),
+          Config.live_keys[0] => HitboxGroup.new(@lanes[0]),
+          Config.live_keys[1] => HitboxGroup.new(@lanes[1]),
+          Config.live_keys[2] => HitboxGroup.new(@lanes[2]),
+          Config.live_keys[3] => HitboxGroup.new(@lanes[3]),
+          Config.live_keys[4] => HitboxGroup.new(@lanes[4]),
         }
         @notes = []
         @frame_cnt = 0
