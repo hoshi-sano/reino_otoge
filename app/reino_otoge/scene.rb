@@ -5,6 +5,11 @@ module ReinoOtoge
 
     class << self
       # このシーンで利用するManagerモジュールを指定するためのメソッド
+      # Managerは以下のメソッドをコール可能であることが期待される
+      #   * update_components: 要素の毎フレーム毎の処理の実行用
+      #   * draw_components: 要素の描画用
+      #   * check_keys: 当該シーン特有のキー入力処理用
+      #   * check_click: 当該シーン特有のクリック処理用
       def manager_module(mod)
         @manager_module = mod
       end
@@ -56,11 +61,12 @@ module ReinoOtoge
       @manager.update_components
       @manager.draw_components
       @manager.check_keys
+      @manager.check_click
       @header_footer_proc.call
     end
 
     # シーン切替時のフェードアウト処理
-    # キー入力のチェックを行わないことでフェードアウト中の操作を禁止している
+    # 入力のチェックを行わないことでフェードアウト中の操作を禁止している
     # @return [Boolean] 次のシーンに遷移可能か否か
     def fade_out
       @manager.update_components

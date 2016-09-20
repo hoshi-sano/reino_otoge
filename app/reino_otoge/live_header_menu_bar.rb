@@ -9,6 +9,7 @@ module ReinoOtoge
     FONT = CFONT[:w][14]
 
     def initialize
+      # TODO: 画像の分離(設定ボタンを抜き出したい)
       @base = Sprite.new(*POSITION, load_image('live-menu-header'))
     end
 
@@ -21,6 +22,13 @@ module ReinoOtoge
     def draw
       Sprite.draw(@base)
       Window.draw_font_ex(*score_xy, PlayerData.score.to_s, FONT, color: C_BLACK)
+    end
+
+    def check_click
+      # TODO: 設定ボタンのみをチェック対象とする
+      if @base === MOUSE_POINTER
+        # TODO: ライブ設定画面を表示する
+      end
     end
   end
 end

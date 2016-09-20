@@ -64,6 +64,7 @@ module ReinoOtoge
         @current_update_method = method(:update_components_in_ready)
         @current_draw_method = method(:draw_components_in_ready)
         @current_check_key_method = Proc.new {} # 空処理
+        @current_check_click_method = Proc.new {} # 空処理
 
         @finish_count = @music_data.length + @delay + SURPLUS
         @full_combo_count = @music_data.full_combo_note_count
@@ -117,6 +118,14 @@ module ReinoOtoge
         @lanes.map(&:judge!)
       end
 
+      def check_click
+        @current_check_click_method.call
+      end
+
+      def check_click_in_live
+        # TODO
+      end
+
       def update_components
         @current_update_method.call
       end
@@ -131,6 +140,7 @@ module ReinoOtoge
           @current_update_method = method(:update_components_in_live)
           @current_draw_method = method(:draw_components_in_live)
           @current_check_key_method = method(:check_keys_in_live)
+          @current_check_click_method = method(:check_click_in_live)
         end
       end
 
@@ -149,6 +159,7 @@ module ReinoOtoge
           @current_update_method = method(:update_components_in_succeed)
           @current_draw_method = method(:draw_components_in_succeed)
           @current_check_key_method = Proc.new {}
+          @current_check_click_method = Proc.new {}
         end
       end
 

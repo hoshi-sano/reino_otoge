@@ -71,6 +71,10 @@ module ReinoOtoge
         end
       end
 
+      def check_click
+        @live_header_menu.check_click
+      end
+
       def go_to_next_scene
         selected_music.stop_preview
         next_scene = LiveScene.new(selected_unit, selected_music)
