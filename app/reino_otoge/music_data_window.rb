@@ -1,6 +1,6 @@
 module ReinoOtoge
   # 楽曲選択画面における楽曲情報表示部
-  class MusicDataDisplay < PartialView
+  class MusicDataWindow < PartialView
     include HelperMethods
 
     ARTWORK_FRAMES = [

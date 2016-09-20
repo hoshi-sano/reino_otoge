@@ -1,7 +1,7 @@
 module ReinoOtoge
   # 楽曲選択画面におけるユニット選択表示部
   # @note 現時点ではユニットは1組しか定義できないため選択は実質不可
-  class UnitSelectDisplay < PartialView
+  class UnitSelectWindow < PartialView
     include HelperMethods
 
     BASE_IMAGE = load_image('unit-select-window')
@@ -86,7 +86,7 @@ module ReinoOtoge
       return if hidden?
       # TODO: ユニット選択をさせる
       if Input.key_push?(K_BACK)
-        @finish_hiding_callback = -> { MusicSelectManager.music_data_display.show! }
+        @finish_hiding_callback = -> { MusicSelectManager.music_data_window.show! }
         hide!
       elsif Input.key_push?(K_RETURN)
         SE.play(:ok)

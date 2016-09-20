@@ -33,8 +33,8 @@ module ReinoOtoge
 
   # 曲選択画面関連
   require 'reino_otoge/live_header_menu_bar'
-  require 'reino_otoge/music_data_display'
-  require 'reino_otoge/unit_select_display'
+  require 'reino_otoge/music_data_window'
+  require 'reino_otoge/unit_select_window'
   require 'reino_otoge/music_select_manager'
   require 'reino_otoge/music_select_scene'
 
