@@ -59,6 +59,9 @@ module ReinoOtoge
     require 'reino_otoge/edit_scene'
   end
 
+  MOUSE_POINTER = Sprite.new(0, 0, Image.new(1, 1, [0, 0, 0, 0]))
+                  .tap { |mp| mp.collision_enable = false }
+
   module ModuleMethods
     def init
       Window.height = WINDOW_HEIGHT
@@ -99,6 +102,13 @@ module ReinoOtoge
     def scene_play
       Ayame.update
       @current_scene.play
+      if Input.mouse_push?(M_LBUTTON)
+        MOUSE_POINTER.collision_enable = true
+        MOUSE_POINTER.x = Input.mouse_x
+        MOUSE_POINTER.y = Input.mouse_y
+      else
+        MOUSE_POINTER.collision_enable = false
+      end
     end
 
     def scene_change

@@ -19,7 +19,6 @@ module ReinoOtoge
       load_buttons
       @selected = :home
       @scale_mod = 1
-      @mouse_pointer = Sprite.new(0, 0, Image.new(1, 1, [0, 0, 0, 0]))
     end
 
     def load_buttons
@@ -60,10 +59,7 @@ module ReinoOtoge
     end
 
     def check_click
-      return unless Input.mouse_push?(M_LBUTTON)
-      @mouse_pointer.x = Input.mouse_x
-      @mouse_pointer.y = Input.mouse_y
-      Sprite.check(@mouse_pointer, @buttons.map(&:values).flatten)
+      Sprite.check(MOUSE_POINTER, @buttons.map(&:values))
     end
   end
 
