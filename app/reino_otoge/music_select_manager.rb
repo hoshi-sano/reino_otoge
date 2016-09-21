@@ -66,7 +66,6 @@ module ReinoOtoge
       end
 
       def go_to_next_scene
-        selected_music.stop_preview
         next_scene = LiveScene.new(selected_unit, selected_music)
         ReinoOtoge.change_scene(next_scene)
       end

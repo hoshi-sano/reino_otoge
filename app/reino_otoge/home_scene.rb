@@ -4,6 +4,7 @@ module ReinoOtoge
     use_menu_header
     use_menu_footer
     manager_module HomeManager
+    bgm :home
 
     def play
       super

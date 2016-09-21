@@ -48,6 +48,7 @@ module ReinoOtoge
         @index += 1
         if @index >= SLICE_NUM
           @appearing = false
+          BGM.play(:live_result)
         else
           @scales = SCALES.dup
         end

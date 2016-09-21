@@ -14,6 +14,15 @@ module ReinoOtoge
         @manager_module = mod
       end
 
+      # このシーンでBGMManagerによるBGMを再生する場合はこのメソッドを利用する
+      def bgm(bgm_id)
+        @bgm_id = bgm_id
+      end
+
+      def bgm_id
+        @bgm_id
+      end
+
       # このシーンで共通ヘッダメニューを利用する場合はこのメソッドを利用する
       def use_menu_header
         @use_menu_header = true
@@ -55,6 +64,16 @@ module ReinoOtoge
       args.any? ? @manager.init(*args) : @manager.init
       BLACK_CURTAIN.alpha = 0
       @header_footer_proc = self.class.header_footer_proc
+    end
+
+    # シーン切替時の前処理
+    def pre_process
+      BGM.play(self.class.bgm_id) if self.class.bgm_id
+    end
+
+    # シーン切替時の後処理
+    def post_process
+      BGM.stop if self.class.bgm_id
     end
 
     def play

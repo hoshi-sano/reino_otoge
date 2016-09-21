@@ -256,5 +256,11 @@ module ReinoOtoge
       test_play_scene = LiveScene.new(unit, @music_data)
       ReinoOtoge.change_scene(test_play_scene)
     end
+
+    def pre_process
+    end
+
+    def post_process
+    end
   end
 end

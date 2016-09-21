@@ -11,6 +11,7 @@ module ReinoOtoge
   require 'reino_otoge/unit'
   require 'reino_otoge/partial_view'
   require 'reino_otoge/sound_effect_manager'
+  require 'reino_otoge/bgm_manager'
 
   # 楽曲データ関連
   require 'reino_otoge/note'
@@ -71,10 +72,12 @@ module ReinoOtoge
       Window.frameskip = true
       PlayerData.init
       SoundEffectManager.init
+      BGMManager.init
       @current_scene = HomeScene.new
       @footer_menu_bar = FooterMenuBar.new
       @header_menu_bar = HeaderMenuBar.new
       @play_method = method(:scene_play)
+      @current_scene.pre_process
     end
 
     def current_scene
@@ -113,13 +116,21 @@ module ReinoOtoge
       end
     end
 
+    # シーン切り替え中に複数回繰り返し呼ばれるメソッド
+    # 切り替えが完了するとscene_playが呼ばれるようになる
+    # @note 名前がわかりにくい
     def scene_change
       finish = @prev_scene.fade_out
-      @play_method = method(:scene_play) if finish
+      if finish
+        @play_method = method(:scene_play)
+        @current_scene.pre_process
+      end
     end
 
+    # シーン切替時に1度だけコールするメソッド
     def change_scene(scene)
       return if scene.class == @current_scene.class
+      @current_scene.post_process
       @prev_scene = @current_scene
       @current_scene = scene
       @play_method = method(:scene_change)

@@ -34,6 +34,16 @@ module ReinoOtoge
       end
     end
 
+    # シーン切替時の前処理
+    def pre_process
+      # BGMの再生はLiveSuccessEffectが開始する
+    end
+
+    # シーン切替時の後処理
+    def post_process
+      BGM.stop
+    end
+
     def fade_out
       true
     end

@@ -60,4 +60,12 @@ module ReinoOtoge
       end
     end
   end
+
+  module BGMManager
+    module ModuleMethods
+      def init; end
+      def play(id); end
+      def stop; end
+    end
+  end
 end
