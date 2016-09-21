@@ -27,7 +27,6 @@ ReinoOtoge.demo_mode! if ENV['DEMO']
 ReinoOtoge.debug_mode! if ENV['DEBUG']
 EDIT_SCENE = ReinoOtoge::EditScene.new(ARGV[0])
 
-GC.disable # TODO: 編集中とテストプレイ中だけ止めるようにする
 ReinoOtoge.init
 ReinoOtoge.instance_variable_set(:@current_scene, EDIT_SCENE)
 Window.loop do

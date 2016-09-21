@@ -156,6 +156,7 @@ module ReinoOtoge
     end
 
     def start_recording
+      GC.disable
       toggle_recording_info
       reset
       @recording = true
@@ -163,6 +164,7 @@ module ReinoOtoge
     end
 
     def finish_recording
+      GC.enable
       toggle_recording_info
       @recording = false
       @music_data.stop_music

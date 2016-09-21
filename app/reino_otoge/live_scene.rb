@@ -7,5 +7,17 @@ module ReinoOtoge
     def initialize(unit, music_data)
      super
     end
+
+    def pre_process
+      super
+      GC.start
+      GC.disable
+    end
+
+    def post_process
+      super
+      GC.enable
+      GC.start
+    end
   end
 end
