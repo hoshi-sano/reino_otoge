@@ -9,18 +9,19 @@ module ReinoOtoge
       bad:     nil,
     }
 
-    def initialize(lane)
+    def initialize(lane, speed)
       @lane = lane
       @lane.hitbox_group = self
       @hit_effect = @lane.hit_effect
       @hitboxes = [
-        Bad.new(self,    -3),
-        Nice.new(self,   -2),
-        Great.new(self,  -1),
-        Perfect.new(self, 0),
-        Great.new(self,   1),
-        Nice.new(self,    2),
-        Bad.new(self,     3),
+        Bad.new(self,    -4, speed),
+        Nice.new(self,   -3, speed),
+        Great.new(self,  -2, speed),
+        Perfect.new(self,-1, speed),
+        Perfect.new(self, 0, speed),
+        Great.new(self,   1, speed),
+        Nice.new(self,    2, speed),
+        Bad.new(self,     3, speed),
       ]
       @hit_map = HIT_MAP.dup
     end
@@ -62,16 +63,17 @@ module ReinoOtoge
     end
 
     class Base < Sprite
-      def self.image
+      def self.image(img_height)
         raise NotImplementedError
       end
 
-      def initialize(group, order)
+      def initialize(group, order, speed)
         @group = group
         @type = self.class.name.split('::').last.downcase.to_sym
+        h = speed * 2
         x = (@group.lane.line_number + 1) * ReinoOtoge::KEY_SPACING
-        y = ReinoOtoge::KEY_LINE_Y + (order * 10)
-        super(x, y, self.class.image)
+        y = ReinoOtoge::KEY_LINE_Y + (order * h)
+        super(x, y, self.class.image(h))
         self.collision_sync = false
         disable!
       end
@@ -94,26 +96,26 @@ module ReinoOtoge
     end
 
     class Perfect < Base
-      def self.image
-        Image.new(50, 10, [255, 0, 0])
+      def self.image(img_height)
+        Image.new(50, img_height, [255, 0, 0])
       end
     end
 
     class Great < Base
-      def self.image
-        Image.new(50, 10, [0, 255, 0])
+      def self.image(img_height)
+        Image.new(50, img_height, [0, 255, 0])
       end
     end
 
     class Nice < Base
-      def self.image
-        Image.new(50, 10, [0, 0, 255])
+      def self.image(img_height)
+        Image.new(50, img_height, [0, 0, 255])
       end
     end
 
     class Bad < Base
-      def self.image
-        Image.new(50, 10, [255, 255, 255])
+      def self.image(img_height)
+        Image.new(50, img_height, [255, 255, 255])
       end
     end
   end

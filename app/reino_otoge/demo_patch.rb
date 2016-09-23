@@ -4,11 +4,11 @@
 # おいてPERFECTとなるようにする
 module ReinoOtoge
   class HitboxGroup
-    def initialize(lane)
+    def initialize(lane, speed)
       @lane = lane
       @lane.hitbox_group = self
       @hit_effect = @lane.hit_effect
-      @hitboxes = [ Perfect.new(self, 0) ]
+      @hitboxes = [ Perfect.new(self, 0, speed) ]
       @hit_map = HIT_MAP.dup
     end
   end
