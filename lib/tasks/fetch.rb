@@ -1,7 +1,8 @@
 namespace :fetch do
   MD_BASE_URL = 'http://maoudamashii.jokersounds.com'
   MD_PREVIEW_BASE_URL = File.join(MD_BASE_URL, 'music/song/preview')
-  MD_MP3_BASE_URL =     File.join(MD_BASE_URL, 'music/song/mp3')
+  MD_SONG_BASE_URL    = File.join(MD_BASE_URL, 'music/song/mp3')
+  MD_GAME_BASE_URL    = File.join(MD_BASE_URL, 'music/game/mp3')
   MD_ALBUMART_ZIP_URL = File.join(MD_BASE_URL, 'images/albumart/albumart.zip')
   SONG_LIST = [
     {
@@ -23,6 +24,10 @@ namespace :fetch do
       albumart: 'song_07.png',
     },
   ]
+  BGM_LIST = {
+    home:        'game_maoudamashii_5_town22.mp3',
+    live_result: 'game_maoudamashii_4_vehicle02.mp3',
+  }
 
 
   # 楽曲の試聴用MP3ファイルを取得し指定したディレクトリに配置する
@@ -34,10 +39,17 @@ namespace :fetch do
   end
 
   # 楽曲のプレイ用MP3ファイルを取得し指定したディレクトリに配置する
-  def fetch_md_mp3(file_name, dist_dir)
+  def fetch_md_song_mp3(file_name, dist_dir)
     dist = File.join(dist_dir, 'bgm.mp3')
     return if File.exists?(dist)
-    url = File.join(MD_MP3_BASE_URL, file_name)
+    url = File.join(MD_SONG_BASE_URL, file_name)
+    fetch_binary_file(url, dist)
+  end
+
+  # 各シーンのBGM用ファイルを取得し指定したディレクトリに配置する
+  def fetch_md_bgm(md_file_name, dist)
+    return if File.exists?(dist)
+    url = File.join(MD_GAME_BASE_URL, md_file_name)
     fetch_binary_file(url, dist)
   end
 
@@ -71,16 +83,22 @@ namespace :fetch do
     end
   end
 
-  desc '魔王魂さまよりプレイ楽曲に必要なファイルを取得する'
+  desc '魔王魂さまよりプレイ楽曲等に必要なファイルを取得する'
   task :md do
     require 'zip'
     require 'open-uri'
-    data_dir = File.join(ROOT, 'data', 'music')
+    music_data_dir = File.join(ROOT, 'data', 'music')
     SONG_LIST.each do |h|
-      dist_dir = File.join(data_dir, h[:dirname])
+      dist_dir = File.join(music_data_dir, h[:dirname])
       fetch_md_preview(h[:preview], dist_dir)
-      fetch_md_mp3(h[:mp3], dist_dir)
+      fetch_md_song_mp3(h[:mp3], dist_dir)
     end
-    fetch_md_artwork(data_dir)
+    fetch_md_artwork(music_data_dir)
+    sound_data_dir = File.join(ROOT, 'data', 'sound')
+    BGM_LIST.each do |dist_file_name, md_file_name|
+      ext = File.extname(md_file_name)
+      dist = File.join(sound_data_dir, "#{dist_file_name}#{ext}")
+      fetch_md_bgm(md_file_name, dist)
+    end
   end
 end
