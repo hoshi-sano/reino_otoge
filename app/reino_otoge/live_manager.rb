@@ -193,7 +193,8 @@ module ReinoOtoge
       end
 
       def go_to_next_scene
-        next_scene = LiveResultScene.new(@grades, @ui.score, @combo.max, @unit, @music_data)
+        next_scene = LiveResultScene.new(@grades, @ui.score, @ui.score_grade,
+                                         @combo.max, @unit, @music_data)
         ReinoOtoge.change_scene(next_scene)
       end
     end

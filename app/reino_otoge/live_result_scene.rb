@@ -8,12 +8,14 @@ module ReinoOtoge
 
     # @param [Hash] grades 各評価ごとのノートヒット数
     # @param [Integer] score ライブの総スコア
+    # @param [Symbol] score_grade ライブの総スコアに対する評価(:NONE/:C/:B/:A/:S)
     # @param [Integer] max_combo 最大コンボ数
     # @param [ReinoOtoge::Unit] unit ライブに参加したユニット
     # @param [ReinoOtoge::MusicData] music_data プレイした楽曲のデータ
-    def initialize(grades, score, max_combo, unit, music_data)
+    def initialize(grades, score, score_grade, max_combo, unit, music_data)
       @live_success_effect = LiveSuccessEffect.new
-      @grade_window = LiveGradeDisplay.new(grades, score, max_combo, unit.center, music_data)
+      @grade_window = LiveGradeDisplay.new(grades, score, score_grade,
+                                           max_combo, unit.center, music_data)
       @ok_button = Sprite.new(*OK_BUTTON_POSITION, load_image('ok-button'))
       @ok_button.visible = false
     end

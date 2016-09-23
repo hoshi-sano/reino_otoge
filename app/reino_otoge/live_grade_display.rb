@@ -14,6 +14,7 @@ module ReinoOtoge
     GRADE_X = 250
     GRADE_Y_OFFSET = 10
     GRADE_Y_SPACING = 25
+    SEAL_CENTER_POSITION = [350, 350]
     COMBO_POSITION = [240, 145]
     SCORE_POSITION = [190, 200]
     HIGHSCORE_POSITION = [205, 230]
@@ -22,10 +23,12 @@ module ReinoOtoge
     IMAGE = load_image('live-result-window')
     # TODO: 背景画像の差し替え
     BG_IMAGE = Image.new(WINDOW_WIDTH, WINDOW_HEIGHT, C_WHITE)
-    SCALING_UNIT = 0.01
+    ARTWORK_SCALING_UNIT = 0.01
+    SEAL_INITIAL_SCALE = 3.0
+    SEAL_SCALING_UNIT = 0.2
     WAIT = LiveSuccessEffect::SCALES.size * LiveSuccessEffect::SLICE_NUM
 
-    def initialize(grades, score, max_combo, idol, music_data)
+    def initialize(grades, score, score_grade, max_combo, idol, music_data)
       @artwork = Sprite.new(0 - IMAGE.width,
                             ARTWORK_Y,
                             music_data.artwork_image)
@@ -53,6 +56,18 @@ module ReinoOtoge
       @idol = Sprite.new(WINDOW_WIDTH,
                          WINDOW_HEIGHT - idol.portrait.height,
                          idol.portrait)
+      if score_grade == :NONE
+        @grade_seal = Sprite.new(*SEAL_CENTER_POSITION, Image.new(1, 1, [0, 0, 0, 0]))
+      else
+        img = load_image("grade-#{score_grade.to_s.downcase}")
+        pos = [SEAL_CENTER_POSITION[0] - (img.width / 2),
+               SEAL_CENTER_POSITION[1] - (img.height / 2)]
+        @grade_seal = Sprite.new(*pos, img)
+      end
+      @grade_seal.center_x = @grade_seal.image.width / 2
+      @grade_seal.center_y = @grade_seal.image.height / 2
+      @grade_seal.scale_x = @grade_seal.scale_y = SEAL_INITIAL_SCALE
+      @grade_seal.visible = false
       @count = 0
       @update_method = method(:wait)
     end
@@ -62,6 +77,7 @@ module ReinoOtoge
       @idol.draw
       @window.draw
       @artwork.draw
+      @grade_seal.draw
     end
 
     def update
@@ -79,6 +95,16 @@ module ReinoOtoge
       @window.x += SLIDE_SPEED if @window.x <= WINDOW_X
       @idol.x -= SLIDE_SPEED if @idol.x >= IDOL_X
       if (@window.x > WINDOW_X) && (@idol.x < IDOL_X)
+        @grade_seal.visible = true
+        @update_method = method(:show_grade_seal)
+        @finish = true
+      end
+    end
+
+    def show_grade_seal
+      @grade_seal.scale_x -= SEAL_SCALING_UNIT
+      @grade_seal.scale_y -= SEAL_SCALING_UNIT
+      if @grade_seal.scale_x <= 1.0
         @update_method = method(:artwork_scaling)
         @finish = true
       end
@@ -86,7 +112,7 @@ module ReinoOtoge
 
     def artwork_scaling
       @scaling_dir ||= -1
-      @artwork.scale_x += SCALING_UNIT * @scaling_dir
+      @artwork.scale_x += ARTWORK_SCALING_UNIT * @scaling_dir
       if @artwork.scale_x <= 0 || @artwork.scale_x >= 0.5
         @scaling_dir = @scaling_dir * -1
       end

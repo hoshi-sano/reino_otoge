@@ -36,6 +36,12 @@ module ReinoOtoge
       @score_gage.score_num
     end
 
+    # 現時点のスコアの評価を返す
+    # @return [Symbol]
+    def score_grade
+      @score_gage.current_grade
+    end
+
     # ライフゲージを減らす
     # @param [Integer] num 減算する数
     def reduce_life(num)
@@ -110,7 +116,7 @@ module ReinoOtoge
         NONE: :C,
       }
 
-      attr_reader :score_num
+      attr_reader :score_num, :current_grade
 
       # 引数score_bordersは次のような形式のハッシュ
       # { S: 7000, A: 6000, B: 5000, C: 4000 }
