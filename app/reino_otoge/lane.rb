@@ -37,6 +37,7 @@ module ReinoOtoge
 
     # 譜面読み込み時に利用するメソッド
     def add_note(klass)
+      @prev_flicking = !!@flicking
       name = NOTE_KLASS_TO_ADDITION_METHOD_NAMES[klass]
       method(name).call(klass)
     end
@@ -59,15 +60,27 @@ module ReinoOtoge
 
     # 譜面読み込み時に利用するメソッド
     def add_flick_note(klass)
+      # フリックノートの連結を実現するために3種のフラグを利用する
+      # * flickingフラグ: 最後に追加されたノートがフリック系の場合trueになる
+      # * prev_flickingフラグ: 直前に追加されたノートがフリック系の場合trueになる
+      #                        最後に追加されたノートが非フリック系だが、その前の
+      #                        ノートを他のフリックノートと連結したい場合の目印となる
+      # * changed_to_flickingフラグ: 現在処理している行(=フレーム)でフリック系の
+      #                              ノートが追加された場合にtrueになる
+      #                              処理順の都合でflickingフラグが立ったが、当該
+      #                              レーンの直前のノートはこの行のフリックノートと
+      #                              連結すべきでない場合に目印になる
+      # NOTE: もっとスマートな方法ないかな...
       @flicking = true
+      @changed_to_flicking = true
       if down?
         add_end_long_note(klass)
       else
         added = add_single_note(klass)
-        next_note = find_next_flick_note(added)
-        if next_note
-          added.next_note = next_note
-          next_note.lane.finish_flick!
+        prev_note = find_prev_flick_note(added)
+        if prev_note
+          prev_note.next_note = added
+          prev_note.lane.finish_flick!
         end
         added
       end
@@ -94,20 +107,17 @@ module ReinoOtoge
     end
 
     # 譜面読み込み時に利用するメソッド
-    def find_next_flick_note(note)
+    def find_prev_flick_note(note)
+      formers = @music_data.lanes[0...@line_number].select(&:prev_or_now_flicking?)
+      latters = @music_data.lanes[(@line_number + 1)..-1].select(&:flicking?)
       case note
       when LeftFlickNote
-        lanes = @music_data.lanes.reverse - [self]
+        flicking_lane = (latters + formers).first
       when RightFlickNote
-        lanes = @music_data.lanes - [self]
+        flicking_lane = (formers + latters).first
       end
-      flicking_lane = lanes.find(&:flicking?)
       if flicking_lane
-        if flicking_lane.line_number > @line_number
-          range = 0..-1
-        else
-          range = 1..-1
-        end
+        range = (flicking_lane.line_number > @line_number) ? 0..-1 : 1..-1
         res = flicking_lane.notes.reverse[range].find { |n| !n.nil? }
         res.kind_of?(FlickNote) ? res : nil
       else
@@ -117,12 +127,22 @@ module ReinoOtoge
 
     # 譜面読み込み時に利用するメソッド
     def finish_flick!
+      @prev_flicking = false
       @flicking = false
     end
 
     # 譜面読み込み時に利用するメソッド
     def flicking?
       !!@flicking
+    end
+
+    # 譜面読み込み時に利用するメソッド
+    def prev_or_now_flicking?
+      !!(@prev_flicking || @flicking) && !@changed_to_flicking
+    end
+
+    def post_read_proc
+      @changed_to_flicking = false
     end
 
     # 特定のノートを削除する

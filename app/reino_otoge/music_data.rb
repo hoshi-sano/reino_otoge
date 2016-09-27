@@ -221,6 +221,8 @@ module ReinoOtoge
             if notes_per_line.size > 1
               notes_per_line[0].synchro_note = notes_per_line[1]
             end
+            # 1行ごとの後処理
+            @lanes.each(&:post_read_proc)
           end
         end
         raise 'not finished long note exists' if @lanes.any?(&:down?)
