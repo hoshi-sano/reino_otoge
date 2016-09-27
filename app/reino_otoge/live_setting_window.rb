@@ -4,19 +4,26 @@ module ReinoOtoge
   class LiveSettingWindow < PartialView
     include HelperMethods
 
-    # TODO: 一時的に他の画面画像を利用、正式な画像に差し替える
-    BASE_IMAGE = load_image('unit-select-window')
+    BASE_IMAGE = load_image('common-window')
     BASE_XY = [(WINDOW_WIDTH / 2) - (BASE_IMAGE.width / 2), 65]
     OK_BUTTON_IMAGE = load_image('ok-button')
     OK_BUTTON_XY = [460, 360]
     KEY_IMAGES_Y = 165
+    WINDOW_TITLE_STR = 'ライブ設定'
+    KEY_CONFIG_STR = 'キー設定'
+    WINDOW_TITLE_POS = [40, 10]
+    KEY_CONFIG_POS = [40, 60]
 
     attr_accessor :prev_window
     attr_reader :key_windows
 
     def initialize
       super()
-      @base = Sprite.new(*BASE_XY, BASE_IMAGE)
+      @base = Sprite.new(*BASE_XY, BASE_IMAGE.clone)
+      @base.image.draw_font_ex(*WINDOW_TITLE_POS, WINDOW_TITLE_STR,
+                               CFONT[:w][20], color: C_BLACK)
+      @base.image.draw_font_ex(*KEY_CONFIG_POS, KEY_CONFIG_STR,
+                               CFONT[16], color: C_BLACK)
       @key_windows = Config.live_key_chars.map.with_index do |c, idx|
         KeyWindow.new(130 + idx * 80, KEY_IMAGES_Y, c, self)
       end
