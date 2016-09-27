@@ -73,6 +73,7 @@ module ReinoOtoge
 
     def hit
       scene_class = FooterMenuBar::ID_TO_SCENE[@id]
+      return if scene_class.nil?
       if ReinoOtoge.current_scene.class != scene_class
         ReinoOtoge.change_scene(scene_class.new)
       end
