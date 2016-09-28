@@ -12,4 +12,5 @@ customize/sound/*
 data/music/*/bgm.mp3
 data/music/*/preview.mp3
 data/music/*/artwork.png
+config/application.yml
 config/live_keys.yml

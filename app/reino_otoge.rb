@@ -70,6 +70,7 @@ module ReinoOtoge
 
   module ModuleMethods
     def init
+      Window.caption = Config.caption
       Window.height = WINDOW_HEIGHT
       Window.width = WINDOW_WIDTH
       Window.frameskip = true
