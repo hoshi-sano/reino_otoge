@@ -26,6 +26,17 @@ module ReinoOtoge
         @favorite = Unit.new(3, 2, 0, 1, 4)
       end
 
+      def spend_stamina(val)
+        @current_stamina -= val
+        ReinoOtoge.update_header_menu_bar
+      end
+
+      def recover_stamina(val = 1)
+        @current_stamina += val
+        @current_stamina = @max_stamina if @current_stamina > @max_stamina
+        ReinoOtoge.update_header_menu_bar
+      end
+
       # NOTE: 暫定的に固定値を返す
       def notifications
         {

@@ -88,6 +88,10 @@ module ReinoOtoge
       @current_scene
     end
 
+    def update_header_menu_bar
+      @header_menu_bar.update if @header_menu_bar
+    end
+
     def update_footer_menu_bar
       @footer_menu_bar.update
     end

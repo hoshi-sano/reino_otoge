@@ -30,6 +30,7 @@ module ReinoOtoge
       self.image = IMAGE.dup
       @idol_message = @idol.random_message
       @ttl = TTL
+      PlayerData.recover_stamina
     end
 
     def update

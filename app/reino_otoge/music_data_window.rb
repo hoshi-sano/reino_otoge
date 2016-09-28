@@ -152,6 +152,11 @@ module ReinoOtoge
       elsif Input.key_push?(K_RIGHT)
         MusicSelectManager.change_selected_music(1)
       elsif Input.key_push?(K_RETURN)
+        if PlayerData.current_stamina <= @selected.spending
+          # スタミナが足りない場合は当該楽曲を選択できない
+          SE.play(:cancel)
+          return
+        end
         SE.play(:ok)
         @finish_hiding_callback = Proc.new do
           MusicSelectManager.unit_select_window.music_data = @selected

@@ -66,6 +66,7 @@ module ReinoOtoge
       end
 
       def go_to_next_scene
+        PlayerData.spend_stamina(selected_music.spending)
         next_scene = LiveScene.new(selected_unit, selected_music)
         ReinoOtoge.change_scene(next_scene)
       end
