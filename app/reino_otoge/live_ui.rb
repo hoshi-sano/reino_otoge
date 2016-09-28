@@ -85,6 +85,7 @@ module ReinoOtoge
       # ライフゲージを減らす
       # @param [Integer] num 減算する数
       def reduce(num)
+        return if @current_life <= 0
         @current_life -= num
         @gage.scale_x = @current_life.to_f / @max_life
       end
