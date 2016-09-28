@@ -5,10 +5,12 @@ customize/images/*
 customize/music/*
 customize/idol/*
 customize/sound/*
+customize/events/*
 !customize/images/.keep
 !customize/music/.keep
 !customize/idol/.keep
 !customize/sound/.keep
+!customize/events/.keep
 data/music/*/bgm.mp3
 data/music/*/preview.mp3
 data/music/*/artwork.png

@@ -7,11 +7,13 @@ module ReinoOtoge
   MUSIC_DIR = File.join(DATA_DIR, 'music')
   IDOL_DIR = File.join(DATA_DIR, 'idol')
   SOUND_DIR = File.join(DATA_DIR, 'sound')
+  EVENT_DIR = File.join(DATA_DIR, 'events')
   CUSTOM_DIR = File.join(ROOT_DIR, 'customize')
   CUSTOM_IMAGE_DIR = File.join(CUSTOM_DIR, 'images')
   CUSTOM_MUSIC_DIR = File.join(CUSTOM_DIR, 'music')
   CUSTOM_IDOL_DIR = File.join(CUSTOM_DIR, 'idol')
   CUSTOM_SOUND_DIR = File.join(CUSTOM_DIR, 'sound')
+  CUSTOM_EVENT_DIR = File.join(CUSTOM_DIR, 'events')
   CONFIG_DIR = File.join(ROOT_DIR, 'config')
   WINDOW_WIDTH = 650
   WINDOW_HEIGHT = 480
