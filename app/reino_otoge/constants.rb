@@ -1,4 +1,6 @@
 module ReinoOtoge
+  VERSION = '0.0.1'
+
   ROOT_DIR = File.absolute_path(File.join(File.dirname(__FILE__), '..', '..'))
   DATA_DIR = File.join(ROOT_DIR, 'data')
   IMAGE_DIR = File.join(DATA_DIR, 'images')
