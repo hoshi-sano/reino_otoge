@@ -62,6 +62,9 @@ module ReinoOtoge
     require 'reino_otoge/edit_scene'
   end
 
+  include HelperMethods
+
+  COMMON_BG_IMAGE = load_image('common-back')
   MOUSE_POINTER = Sprite.new(0, 0, Image.new(1, 1, [0, 0, 0, 0]))
                   .tap { |mp| mp.collision_enable = false }
 

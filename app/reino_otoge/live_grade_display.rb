@@ -21,8 +21,6 @@ module ReinoOtoge
     MUSIC_SCORE_POSITION = [110, 265]
     PLAYER_SCORE_POSITION = [230, 265]
     IMAGE = load_image('live-result-window')
-    # TODO: 背景画像の差し替え
-    BG_IMAGE = Image.new(WINDOW_WIDTH, WINDOW_HEIGHT, C_WHITE)
     ARTWORK_SCALING_UNIT = 0.01
     SEAL_INITIAL_SCALE = 3.0
     SEAL_SCALING_UNIT = 0.2
@@ -73,7 +71,7 @@ module ReinoOtoge
     end
 
     def draw
-      Window.draw(0, 0, BG_IMAGE)
+      Window.draw(0, 0, COMMON_BG_IMAGE)
       @idol.draw
       @window.draw
       @artwork.draw
