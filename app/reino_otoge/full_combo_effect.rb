@@ -43,7 +43,7 @@ module ReinoOtoge
     end
 
     def show
-      # TODO: 音を鳴らす
+      SE.play(:full_combo)
       self.visible = true
     end
 

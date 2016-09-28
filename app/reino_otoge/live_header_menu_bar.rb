@@ -28,6 +28,7 @@ module ReinoOtoge
       # TODO: 設定ボタンのみをチェック対象とする
       return if MusicSelectManager.live_setting_window.show?
       if @base === MOUSE_POINTER
+        SE.play(:next)
         current_window = MusicSelectManager.current_window
         current_window.finish_hiding_callback = Proc.new do
           MusicSelectManager.live_setting_window.prev_window = current_window

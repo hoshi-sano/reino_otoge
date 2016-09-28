@@ -60,8 +60,10 @@ module ReinoOtoge
         if Input.key_push?(K_RETURN)
           # キー設定変更の反映
           Config.live_keys = @key_windows.map(&:key_const)
+          SE.play(:next)
           back_to_prev_window
         elsif Input.key_push?(K_BACK)
+          SE.play(:cancel)
           back_to_prev_window
         end
       end

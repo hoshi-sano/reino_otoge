@@ -40,6 +40,7 @@ module ReinoOtoge
         @current_index = @current_index % @favorite_unit.size
         reset_current_idol_image
         @idol_message_window.idol = current_idol
+        SE.play(:change)
       end
 
       def update_components

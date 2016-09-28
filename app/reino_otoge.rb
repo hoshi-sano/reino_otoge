@@ -143,7 +143,10 @@ module ReinoOtoge
           HomeScene        => :home,
           MusicSelectScene => :live,
         }[@current_scene.class]
-      @footer_menu_bar.select(button_id) if button_id
+      if button_id
+        SE.play(:next)
+        @footer_menu_bar.select(button_id)
+      end
     end
 
     # デモ用のモードを有効にする

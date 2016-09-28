@@ -5,11 +5,15 @@ module ReinoOtoge
 
       # 効果音ファイル名一覧
       SE_FILE_NAMES = [
-        :beep,    # ビープ音 (適切な名称かどうかは要検討)
-        :flick,   # フリックノートを叩く音
-        :hit,     # 通常ノートを叩く音
-        :ok,      # 決定音
-        :scratch, # 楽曲選択時などの選択変更効果音
+        :beep,       # ビープ音 (適切な名称かどうかは要検討)
+        :cancel,     # キャンセル音
+        :change,     # 切替音
+        :flick,      # フリックノートを叩く音
+        :full_combo, # フルコンボ達成時効果音
+        :hit,        # 通常ノートを叩く音
+        :next,       # サブ決定音
+        :ok,         # 決定音
+        :scratch,    # 楽曲選択時などの選択変更効果音
       ]
 
       def init
