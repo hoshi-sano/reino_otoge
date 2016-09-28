@@ -149,6 +149,7 @@ module ReinoOtoge
     # 長押しの始点終点のように、始点がミスになった時点で終点も一緒に消えるような
     # 場合に利用するメソッド
     def remove_note(note)
+      note.vanish
       if idx = @notes.index(note)
         @notes[idx] = nil
       end

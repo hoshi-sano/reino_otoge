@@ -61,6 +61,8 @@ module ReinoOtoge
     def update
       update_scale
       self.y += @speed
+      return if self.y < KEY_LINE_Y
+      @synchro_note = nil
       miss! if self.y > Window.height # TODO: MISSのラインを決める
     end
 
