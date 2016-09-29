@@ -62,3 +62,10 @@ https://github.com/mirichi/dxruby-doc/wiki よりAyame/Rubyを入手し、以下
   $ cd reino-otoge
   $ rpk main.rb
 ```
+
+## ライセンス
+
+このソフトウェアのソースコードはzlib/libpngライセンスのもとで公開しています。
+LICENSE.txtを参照してください。
+
+ただし、本ソフトウェアに含まれるスクリプトを実行することにより外部から取得できる画像や音楽などのデータは当然ながらその限りではありません。取得先の利用規約等のご確認をお願いします。
