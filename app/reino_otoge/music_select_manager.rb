@@ -63,6 +63,9 @@ module ReinoOtoge
 
       def check_click
         @live_header_menu.check_click
+        @music_data_window.check_click
+        @unit_select_window.check_click
+        @live_setting_window.check_click
       end
 
       def go_to_next_scene

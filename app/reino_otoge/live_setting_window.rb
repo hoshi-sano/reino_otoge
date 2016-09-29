@@ -69,6 +69,18 @@ module ReinoOtoge
       end
     end
 
+    def check_click
+      # 非表示時、またはキーコンフィグ変更途中の場合は何もしない
+      return if hidden?
+      return if @key_windows.find(&:selected)
+      if @ok_button === MOUSE_POINTER
+        Config.live_keys = @key_windows.map(&:key_const)
+        SE.play(:next)
+        back_to_prev_window
+      end
+      # TODO: キャンセルボタンの追加
+    end
+
     def back_to_prev_window
       @key_windows.each(&:deselect!)
       @finish_hiding_callback = Proc.new { @prev_window.show! }

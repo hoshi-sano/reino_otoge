@@ -92,12 +92,21 @@ module ReinoOtoge
         end
         hide!
       elsif Input.key_push?(K_RETURN)
-        SE.play(:ok)
-        @finish_hiding_callback = Proc.new do
-          MusicSelectManager.go_to_next_scene
-        end
-        hide!
+        live_start
       end
+    end
+
+    def check_click
+      return if hidden?
+      live_start if  @start_button === MOUSE_POINTER
+    end
+
+    def live_start
+      SE.play(:ok)
+      @finish_hiding_callback = Proc.new do
+        MusicSelectManager.go_to_next_scene
+      end
+      hide!
     end
   end
 end

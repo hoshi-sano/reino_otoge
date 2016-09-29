@@ -30,10 +30,17 @@ module ReinoOtoge
 
       if @grade_window.finished?
         @ok_button.visible = true
-        if Input.key_push?(K_RETURN)
-          go_to_next_scene
-        end
+        check_keys
+        check_click
       end
+    end
+
+    def check_keys
+      go_to_next_scene if Input.key_push?(K_RETURN)
+    end
+
+    def check_click
+      go_to_next_scene if @ok_button === MOUSE_POINTER
     end
 
     # シーン切替時の前処理

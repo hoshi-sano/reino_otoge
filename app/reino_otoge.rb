@@ -114,7 +114,6 @@ module ReinoOtoge
 
     def scene_play
       Ayame.update
-      @current_scene.play
       if Input.mouse_push?(M_LBUTTON)
         MOUSE_POINTER.collision_enable = true
         MOUSE_POINTER.x = Input.mouse_x
@@ -122,6 +121,7 @@ module ReinoOtoge
       else
         MOUSE_POINTER.collision_enable = false
       end
+      @current_scene.play
     end
 
     # シーン切り替え中に複数回繰り返し呼ばれるメソッド
