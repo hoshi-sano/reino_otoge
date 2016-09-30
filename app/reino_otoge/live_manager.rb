@@ -160,6 +160,7 @@ module ReinoOtoge
           @current_draw_method = method(:draw_components_in_succeed)
           @current_check_key_method = Proc.new {}
           @current_check_click_method = Proc.new {}
+          SE.play(:cheer)
         end
       end
 

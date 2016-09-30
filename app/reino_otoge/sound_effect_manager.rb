@@ -7,6 +7,7 @@ module ReinoOtoge
       SE_FILE_NAMES = [
         :beep,       # ビープ音 (適切な名称かどうかは要検討)
         :cancel,     # キャンセル音
+        :cheer,      # 歓声
         :change,     # 切替音
         :flick,      # フリックノートを叩く音
         :full_combo, # フルコンボ達成時効果音
