@@ -27,8 +27,13 @@ module ReinoOtoge
       end
 
       def live_keys
-        @live_keys ||= personal(:live_keys).map { |str| DXRuby.const_get(str) } ||
-                       DEFAULT[:live_keys]
+        return @live_keys if @live_keys
+        conf = personal(:live_keys)
+        if conf
+          @live_keys = conf.map { |str| DXRuby.const_get(str) }
+        else
+          @live_keys =  DEFAULT[:live_keys]
+        end
       end
 
       def live_key_chars
