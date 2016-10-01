@@ -4,6 +4,8 @@
 
 某リズムゲームによく似たRuby製の何かです。
 
+![](https://github.com/hoshi-sano/reino_otoge/wiki/images/preview.gif)
+
 ### できること
 
 * 楽曲プレイ(Ver0.0.1時点ではキーボード操作のみ)
@@ -14,11 +16,14 @@
 
 ## 遊び方
 
-TODO
+Wikiの「[遊び方](https://github.com/hoshi-sano/reino_otoge/wiki/how_to_play)」の項目を参照ください。
 
 ## カスタマイズについて
 
-TODO
+* [キャラクターの追加・編集](https://github.com/hoshi-sano/reino_otoge/wiki/custom_character)
+* [プレイ楽曲の追加・編集](https://github.com/hoshi-sano/reino_otoge/wiki/custom_music)
+* [UIのカスタマイズ](https://github.com/hoshi-sano/reino_otoge/wiki/custom_ui)
+* [効果音・BGMのカスタマイズ](https://github.com/hoshi-sano/reino_otoge/wiki/custom_se)
 
 ## 開発環境の用意
 
