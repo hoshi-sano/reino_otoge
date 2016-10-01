@@ -1,0 +1,14 @@
+---
+lv:          99
+life:        99
+vocal:       9999
+visual:      9999
+performance: 9999
+name:        名前を記述してください
+name_kana:   ふりがなを記述してください
+age:         99
+messages:
+  - |
+    メッセージ1です。
+  - |
+    メッセージ2です。

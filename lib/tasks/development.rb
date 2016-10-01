@@ -7,14 +7,21 @@ def dxruby_so_dir
   raise 'cannot find dxruby.so'
 end
 
-def next_music_index
-  music_dir = File.join(ROOT, 'data', 'music')
-  pattern = File.join(music_dir, "[0-9][0-9][0-9]_*")
+def next_index(dir)
+  pattern = File.join(dir, "[0-9][0-9][0-9]_*")
   max_idx =
     Dir.glob(pattern).map { |path|
-      path.split(File::Separator).last.match(/[0-9]{3}/)[0].to_i
-    }.max
+    path.split(File::Separator).last.match(/[0-9]{3}/)[0].to_i
+  }.max
   max_idx ? (max_idx + 1) : 0
+end
+
+def next_idol_index
+  next_index(File.join(ROOT, 'data', 'idol'))
+end
+
+def next_music_index
+  next_index(File.join(ROOT, 'data', 'music'))
 end
 
 namespace :dev do
@@ -37,6 +44,17 @@ namespace :dev do
     new_dir_path = File.join(ROOT, 'data', 'music', new_dir_name)
     music_template = File.join(ROOT, 'templates', 'music')
     FileUtils.cp_r(music_template, new_dir_path)
+    puts "generate #{new_dir_path}"
+  end
+
+  desc '新規アイドルを生成する'
+  task :gen_idol, :dir_name do |task, args|
+    idx = next_idol_index
+    raise 'too big music directory index' if idx > 999
+    new_dir_name = ["%03d" % idx, '_', args[:dir_name] || 'new'].join
+    new_dir_path = File.join(ROOT, 'data', 'idol', new_dir_name)
+    idol_template = File.join(ROOT, 'templates', 'idol')
+    FileUtils.cp_r(idol_template, new_dir_path)
     puts "generate #{new_dir_path}"
   end
 end
