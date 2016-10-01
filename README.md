@@ -6,6 +6,8 @@
 
 ![](https://github.com/hoshi-sano/reino_otoge/wiki/images/preview.gif)
 
+[ダウンロード](https://github.com/hoshi-sano/reino_otoge/wiki/release)
+
 ### できること
 
 * 楽曲プレイ(Ver0.0.1時点ではキーボード操作のみ)
@@ -43,6 +45,12 @@ https://github.com/mirichi/dxruby-doc/wiki よりAyame/Rubyを入手し、以下
   $ cd reino_otoge
   $ cp /path/to/Ayame.dll .
   $ rake dev:put_ayame_so[/path/to/ayame.so] # 引数で指定したファイルをdxruby.soと同じディレクトリに配置します
+```
+
+その後以下のコマンドを実行してゲームプレイに必要なファイルを取得してください。
+
+```
+  $ rake fetch:md
 ```
 
 以下を実行し、問題なくゲームが開始されれば準備完了です。
