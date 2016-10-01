@@ -1,6 +1,14 @@
 # 譜面作成用に各種挙動を変更するためのパッチ
 module ReinoOtoge
   class MusicData
+    def length
+      @lanes.first.length
+    end
+
+    def full_combo_note_count
+      @lanes.map(&:note_count).inject(&:+)
+    end
+
     def reset_lanes!
       @lanes = LANE_NUM_RANGE.to_a.map { |num| Lane.new(num, self) }
     end
