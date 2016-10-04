@@ -3,6 +3,7 @@ module ReinoOtoge
     include HelperMethods
 
     IMAGE = load_image('note')
+    HALF_WIDTH = IMAGE.width / 2
     SYNCHRO_BAR_IMAGE = Image.new(1, 1, C_WHITE)
 
     attr_reader :lane
@@ -31,11 +32,17 @@ module ReinoOtoge
       x = (line_number + 1) * ReinoOtoge::KEY_SPACING
       y = ReinoOtoge::NOTE_GENERATE_Y
       super(x, y, self.class.const_get(:IMAGE))
+      collision_xy = [self.center_x, self.center_y]
+      self.center_x = half_width + (2 - line_number) * half_width
       @speed = speed
 
       update_scale
       self.collision_sync = false
-      self.collision = [self.center_x, self.center_y]
+      self.collision = collision_xy
+    end
+
+    def half_width
+      self.class.const_get(:HALF_WIDTH)
     end
 
     def current_width
@@ -47,11 +54,11 @@ module ReinoOtoge
     end
 
     def current_left_x
-      self.x + self.center_x - (current_width / 2)
+      self.x + (center_x - center_x * scale_x)
     end
 
     def current_right_x
-      self.x + self.center_x + (current_width / 2)
+      self.x + (center_x - center_x * scale_x) + current_width
     end
 
     def current_middle_y
