@@ -14,26 +14,30 @@ module ReinoOtoge
       @lane.hitbox_group = self
       @hit_effect = @lane.hit_effect
       @hitboxes = [
-        Bad.new(self,    -4, speed),
-        Nice.new(self,   -3, speed),
-        Great.new(self,  -2, speed),
-        Perfect.new(self,-1, speed),
         Perfect.new(self, 0, speed),
-        Great.new(self,   1, speed),
-        Nice.new(self,    2, speed),
-        Bad.new(self,     3, speed),
+        Great.new(self,   0, speed),
+        Nice.new(self,    0, speed),
+        Bad.new(self,     0, speed),
       ]
+      @current_index = 0
       @hit_map = HIT_MAP.dup
     end
 
     # 判定を有効にする
     def enable!
-      @hitboxes.each(&:enable!)
+      return unless @hitboxes[@current_index]
+      @hitboxes[@current_index].enable!
     end
 
     # 判定を無効にする
     def disable!
       @hitboxes.each(&:disable!)
+    end
+
+    def change!
+      @current_index += 1
+      @current_index = @current_index % (@hitboxes.size + 1)
+      disable!
     end
 
     def draw

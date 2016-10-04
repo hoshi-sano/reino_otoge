@@ -104,14 +104,8 @@ module ReinoOtoge
 
       def check_keys_in_live
         @keys.each do |key, hitbox_group|
-          if Input.key_push?(key)
-            hitbox_group.enable!
-          elsif Input.key_release?(key)
-            hitbox_group.lane.down? ? hitbox_group.enable! : hitbox_group.disable!
-            hitbox_group.lane.finish_long_down!
-          else
-            hitbox_group.disable!
-          end
+          hitbox_group.enable!
+          hitbox_group.change! if Input.key_push?(key)
           hitbox_group.draw if ReinoOtoge.debug?
         end
         Sprite.check(@keys.values.map(&:to_a), @notes, :shot, :hit)
