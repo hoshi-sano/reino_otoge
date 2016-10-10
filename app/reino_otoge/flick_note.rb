@@ -13,10 +13,11 @@ module ReinoOtoge
 
     # 打鍵後の後処理
     # 長押しの末尾に配置される可能性もあるため、
-    # vanishしつつinvisibleにもする
+    # super内でvanishしつつinvisibleにし長押し終了のメソッドも呼ぶ
     def post_proc(lane)
       super
       self.visible = false
+      @lane.finish_long_down!
     end
 
     def hit
